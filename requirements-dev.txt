@@ -1,0 +1,4 @@
+colour-runner >= 0.0.5
+deepdiff >= 3.3.0
+pygments >= 2.2.0
+tox >= 3.0.0
