@@ -114,12 +114,12 @@ coverage-codecov: coverage
 	bash <(curl -s https://codecov.io/bash)
 
 .PHONY: coverage-ci
-coverage:
+coverage-cis:
 	coverage run ./$(NAME)/tests
 
 .PHONY: coverage-ci-codecov
-coverage:
-	coverage run ./$(NAME)/tests
+coverage-ci-codecov:
+	bash <(curl -s https://codecov.io/bash)
 
 
 # =========================================
