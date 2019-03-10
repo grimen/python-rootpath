@@ -5,5 +5,7 @@ python:
     - "3.7-dev"
 install: make install-ci
 script: make test-ci
+after_success:
+    - make coverage-ci
 notifications:
     email: false

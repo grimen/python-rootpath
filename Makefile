@@ -113,6 +113,14 @@ coverage: clean env3
 coverage-codecov: coverage
 	bash <(curl -s https://codecov.io/bash)
 
+.PHONY: coverage-ci
+coverage:
+	coverage run ./$(NAME)/tests
+
+.PHONY: coverage-ci-codecov
+coverage:
+	coverage run ./$(NAME)/tests
+
 
 # =========================================
 #       environment (pyenv)
