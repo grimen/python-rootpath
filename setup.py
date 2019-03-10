@@ -70,7 +70,7 @@ def get_requirements():
 # --------------------------------------
 
 name = 'rootpath'
-version = '0.1.0'
+version = '0.1.1'
 description = 'Python project/package root path detection.'
 keywords = [
     'python',
