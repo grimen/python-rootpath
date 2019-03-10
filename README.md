@@ -1,5 +1,5 @@
 
-# `rootpath` [![PyPI version](https://badge.fury.io/py/rootpath.svg)](https://badge.fury.io/py/rootpath) [![Build Status](https://travis-ci.com/grimen/python-rootpath.svg?branch=master)](https://travis-ci.com/grimen/python-rootpath)
+# `rootpath` [![PyPI version](https://badge.fury.io/py/rootpath.svg)](https://badge.fury.io/py/rootpath) [![Build Status](https://travis-ci.com/grimen/python-rootpath.svg?branch=master)](https://travis-ci.com/grimen/python-rootpath) [![Coverage Status](https://codecov.io/gh/grimen/python-rootpath/branch/master/graph/badge.svg)](https://codecov.io/gh/grimen/python-rootpath)
 
 *Python project/package root path detection.*
 
