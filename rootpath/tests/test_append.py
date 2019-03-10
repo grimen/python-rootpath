@@ -15,12 +15,16 @@ try:
     try:
         sys.path.remove(CURRENT_PATH)
     except:
+        print('ERR #1')
         pass
 
     sys.path.index(ROOT_PATH)
 
 except ValueError:
+    print('ERR #2')
     sys.path.insert(0, ROOT_PATH)
+
+print('sys.path', sys.path)
 
 from rootpath.tests import helper
 
