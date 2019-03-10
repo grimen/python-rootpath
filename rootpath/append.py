@@ -24,8 +24,6 @@ except ValueError:
 
 import rootpath
 
-from rootpath.utils.banner import banner
-
 
 # =========================================
 #       FUNCTIONS
