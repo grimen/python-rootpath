@@ -23,7 +23,7 @@ except ValueError:
     print('ERR #2')
     sys.path.insert(0, ROOT_PATH)
 
-print('sys.path', sys.path)
+print('sys.path', sys.path, CURRENT_PATH, ROOT_PATH)
 
 from rootpath.tests import helper
 
