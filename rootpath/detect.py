@@ -97,27 +97,3 @@ def detect(current_path = None, pattern = None):
     root_path = find_root_path(current_path, pattern)
 
     return root_path
-
-
-# =========================================
-#       MAIN
-# --------------------------------------
-
-if __name__ == '__main__':
-
-    with banner(__file__):
-
-        search_path = None
-        result = detect(search_path)
-
-        print('detect({0})\n\n  => {1}\n'.format(search_path, detect(search_path)))
-
-        search_path = '.'
-        result = detect(search_path)
-
-        print('detect("{0}")\n\n  => {1}\n'.format(search_path, detect(search_path)))
-
-        search_path = path.abspath(path.normpath(sys.argv.pop() or path.dirname(__file__)))
-        result = detect(search_path)
-
-        print('detect("{0}")\n\n  => {1}\n'.format(search_path, detect(search_path)))

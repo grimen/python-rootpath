@@ -61,29 +61,3 @@ def append(current_path = None, pattern = None):
         sys.path.append(project_root_path)
 
         return True, project_root_path
-
-
-
-# =========================================
-#       MAIN
-# --------------------------------------
-
-if __name__ == '__main__':
-
-    with banner(__file__):
-
-        search_path = None
-        result = append(search_path)
-
-        print('append({0})\n\n  => {1}\n'.format(search_path, result))
-
-        search_path = '.'
-        result = append(search_path)
-
-        print('append("{0}")\n\n  => {1}\n'.format(search_path, result))
-
-        search_path = path.abspath(path.normpath(sys.argv.pop() or path.dirname(__file__)))
-        result = append(search_path)
-
-        print('append("{0}")\n\n  => {1}\n'.format(search_path, result))
-
