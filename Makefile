@@ -91,7 +91,7 @@ test-tox:
 	tox
 
 .PHONY: test-ci
-test-ci: test-tox
+test-ci: test-tox coverage
 
 .PHONY: testimport
 testimport:
@@ -99,6 +99,19 @@ testimport:
 	pip install -U . && \
 	python -c "import $(NAME); print('$(NAME)', $(NAME))" && \
 	echo "OK"
+
+
+# =========================================
+#       coverage (codecov)
+# --------------------------------------
+
+.PHONY: coverage
+coverage: clean env3
+	coverage run ./$(NAME)/tests
+
+.PHONY: coverage-codecov
+coverage-codecov: coverage
+	bash <(curl -s https://codecov.io/bash)
 
 
 # =========================================
@@ -126,6 +139,7 @@ env-create-python2:
 	eval "$$(pyenv virtualenv-init -)" && \
 	pyenv virtualenv -f $(PYTHON_2_VERSION) $(NAME)-python2 && \
 	pyenv activate $(NAME)-python2 && \
+	pip install --upgrade pip && \
 	pip install -U -r requirements.txt && \
 	pyenv versions | grep --color=always $(NAME)-python
 
@@ -135,6 +149,7 @@ env-create-python3:
 	eval "$$(pyenv virtualenv-init -)" && \
 	pyenv virtualenv -f $(PYTHON_3_VERSION) $(NAME)-python3 && \
 	pyenv activate $(NAME)-python3 && \
+	pip install --upgrade pip && \
 	pip install -U -r requirements.txt && \
 	pyenv versions | grep --color=always $(NAME)-python
 
