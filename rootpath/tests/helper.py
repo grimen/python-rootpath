@@ -12,6 +12,8 @@ import inspect
 import pprint
 import types
 import six
+import logging
+import inspecta
 
 import shutil, errno
 
@@ -152,20 +154,39 @@ def load(root = DEFAULT_TEST_ROOT_PATH, pattern = DEFAULT_TEST_FILE_PATTERN):
 
     unittest.defaultTestLoader.discover(root, pattern = pattern)
 
-def deepdiff(a, b, exclude_types = None):
-    exclude_types = exclude_types or []
+def bytes2str(data):
+    if isinstance(data, bytes):
+        return data.decode()
 
-    # FIXME: don't seem to cast correctly
-    # a = compat_data.bytes2str(a)
-    # b = compat_data.bytes2str(b)
+    if isinstance(data, str):
+        return str(data)
+
+    if isinstance(data, dict):
+        return dict(map(bytes2str, data.items()))
+
+    if isinstance(data, tuple):
+        return tuple(map(bytes2str, data))
+
+    if isinstance(data, list):
+        return list(map(bytes2str, data))
+
+    if isinstance(data, set):
+        return set(map(bytes2str, data))
+
+    return data
+
+def deepdiff(a, b, exclude_types = None):
+    exclude_types = exclude_types or [logging.Logger]
+
+    a = bytes2str(a)
+    b = bytes2str(b)
 
     return DeepDiff(a, b, ignore_order = True, report_repetition = True, exclude_types = exclude_types)
 
 def pretty(data):
-    result = pprint.pformat(data, indent = 4, depth = None)
-    result = highlight(result, lexers.PythonLexer(), formatters.TerminalFormatter())
+    data = bytes2str(data)
 
-    return result
+    return inspecta.inspect(data, indent = 4, depth = None)
 
 def root_path(*args):
     return ROOT_PATH
