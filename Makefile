@@ -50,21 +50,30 @@ install-ci:
 # --------------------------------------
 
 .PHONY: build
-build:
+build: package-build
+
+.PHONY: release
+release: package-release-dev package-release
+
+.PHONY: release-dev
+release: package-release-dev
+
+.PHONY: package-build
+package-build:
 	rm -rf ./dist && \
 	PYTHON_USER_FLAG=$(shell python -c "import sys; print('' if hasattr(sys, 'real_prefix') or hasattr(sys, 'base_prefix') else '--user')") && \
 	python -m pip install $(PYTHON_USER_FLAG) --upgrade setuptools wheel && \
 	python setup.py sdist bdist_wheel
 
-.PHONY: dist
-dist: build
+.PHONY: package-release
+package-release: package-build
 	python -m pip install $(PYTHON_USER_FLAG) --upgrade twine && \
-	twine upload dist/*
+	twine upload --repository pypi dist/*
 
-.PHONY: dist-dev
-dist-dev: build
+.PHONY: package-release-dev
+package-release-dev: package-build
 	python -m pip install $(PYTHON_USER_FLAG) --upgrade twine && \
-	twine upload --repository-url https://test.pypi.org/legacy/ dist/*
+	twine upload --repository pypi-dev dist/*
 
 
 # =========================================
