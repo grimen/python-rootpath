@@ -31,7 +31,7 @@ def detect(current_path = None, pattern = None):
 
     Examples:
 
-        from rootpath import rootpath
+        import rootpath
 
         rootpath.detect()
         rootpath.detect(__file__)
