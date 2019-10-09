@@ -138,7 +138,7 @@ import rootpath
 rootpath.append()
 
 # 2. will import correctly without errors no matter if imported/executed from same path or any other system path - which is not true for the native Python 3 relative import
-import rootpath.utils.say as say
+import foo.utils.say as say
 
 def bar():
     say()
@@ -156,7 +156,7 @@ import rootpath
 rootpath.append()
 
 # 2. will import correctly without errors no matter if imported/executed from same path or any other system path - which is not true for the native Python 3 relative import
-import rootpath.utils.say as say
+import foo.utils.say as say
 
 def baz():
     hello()
