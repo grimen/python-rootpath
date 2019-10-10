@@ -84,22 +84,6 @@ class TestCase(helper.TestCase):
 
         self.assertEqual(root_path, foo_root_path)
 
-        root_path = rootpath.detect(helper.fixture_path('projects/py-foo'))
-
-        self.assertEqual(root_path, foo_root_path)
-
-        root_path = rootpath.detect(helper.fixture_path('projects/py-foo/'))
-
-        self.assertEqual(root_path, foo_root_path)
-
-        root_path = rootpath.detect(helper.fixture_path('projects/py-foo/foo'))
-
-        self.assertEqual(root_path, foo_root_path)
-
-        root_path = rootpath.detect(helper.fixture_path('projects/py-foo/foo/'))
-
-        self.assertEqual(root_path, foo_root_path)
-
         root_path = rootpath.detect(helper.fixture_path('projects/py-foo/foo/utils'))
 
         self.assertEqual(root_path, foo_root_path)
@@ -110,22 +94,6 @@ class TestCase(helper.TestCase):
 
     def test_rootpath_detect_entry_pattern(self):
         foo_root_path = helper.fixture_path('projects/py-foo')
-
-        root_path = rootpath.detect(helper.fixture_path('projects/py-foo'), 'not_a_file')
-
-        self.assertNotEqual(root_path, foo_root_path)
-
-        root_path = rootpath.detect(helper.fixture_path('projects/py-foo/'), 'not_a_file')
-
-        self.assertNotEqual(root_path, foo_root_path)
-
-        root_path = rootpath.detect(helper.fixture_path('projects/py-foo/foo'), 'not_a_file')
-
-        self.assertNotEqual(root_path, foo_root_path)
-
-        root_path = rootpath.detect(helper.fixture_path('projects/py-foo/foo/'), 'not_a_file')
-
-        self.assertNotEqual(root_path, foo_root_path)
 
         root_path = rootpath.detect(helper.fixture_path('projects/py-foo'), 'not_a_file')
 
@@ -178,7 +146,7 @@ class TestCase(helper.TestCase):
 
         self.assertEqual(root_path, bar_root_path)
 
-    def test_rootpath_detect_entry_nested(self):
+    def test_rootpath_detect_entry_nested_pattern(self):
         bar_root_path = helper.fixture_path('projects/py-foo/vendor/py-bar')
 
         root_path = rootpath.detect(helper.fixture_path('projects/py-foo/vendor/py-bar'), 'not_a_file')

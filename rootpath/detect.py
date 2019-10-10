@@ -52,32 +52,37 @@ def detect(current_path = None, pattern = None):
 
         detecting = True
 
+        found_more_files = None
+        found_root = None
+        found_system_root = None
+
+        file_names = None
+        root_file_names = None
+
         while (detecting):
             file_names = listdir(current_path)
-            no_more_files = len(file_names) <= 0
+            found_more_files = bool(len(file_names) > 0)
 
-            if no_more_files:
+            if not found_more_files:
                 detecting = False
 
                 return None
 
-            project_root_files = filter(pattern.match, file_names)
-            project_root_files = list(project_root_files)
+            root_file_names = filter(pattern.match, file_names)
+            root_file_names = list(root_file_names)
 
-            found_root = len(project_root_files) > 0
+            found_root = bool(len(root_file_names) > 0)
 
             if found_root:
                 detecting = False
 
                 return current_path
 
-            if current_path == '/':
+            found_system_root = bool(current_path == path.sep)
+
+            if found_system_root:
                 return None
 
             current_path = path.abspath(path.join(current_path, '..'))
 
-        return result
-
-    root_path = find_root_path(current_path, pattern)
-
-    return root_path
+    return find_root_path(current_path, pattern)
