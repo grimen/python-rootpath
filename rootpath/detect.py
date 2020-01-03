@@ -50,8 +50,6 @@ def detect(current_path = None, pattern = None):
         if isinstance(pattern, six.string_types):
             pattern = re.compile(pattern)
 
-        detecting = True
-
         found_more_files = None
         found_root = None
         found_system_root = None
@@ -59,13 +57,11 @@ def detect(current_path = None, pattern = None):
         file_names = None
         root_file_names = None
 
-        while (detecting):
+        while True:
             file_names = listdir(current_path)
             found_more_files = bool(len(file_names) > 0)
 
             if not found_more_files:
-                detecting = False
-
                 return None
 
             root_file_names = filter(pattern.match, file_names)
@@ -74,8 +70,6 @@ def detect(current_path = None, pattern = None):
             found_root = bool(len(root_file_names) > 0)
 
             if found_root:
-                detecting = False
-
                 return current_path
 
             found_system_root = bool(current_path == path.sep)
