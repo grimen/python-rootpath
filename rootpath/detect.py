@@ -15,7 +15,6 @@ from os import path, listdir
 #       CONSTANTS
 # --------------------------------------
 
-DEFAULT_PATH = '.'
 DEFAULT_ROOT_FILENAME_MATCH_PATTERN = '.git|requirements.txt'
 
 
@@ -50,26 +49,17 @@ def detect(current_path = None, pattern = None):
         if isinstance(pattern, six.string_types):
             pattern = re.compile(pattern)
 
-        found_more_files = None
-        found_root = None
-        found_system_root = None
-
         file_names = None
-        root_file_names = None
 
         while True:
             file_names = listdir(current_path)
-            found_more_files = bool(len(file_names) > 0)
 
-            if not found_more_files:
+            if not file_names:
                 return None
 
-            root_file_names = filter(pattern.match, file_names)
-            root_file_names = list(root_file_names)
+            filtered_file_names_gen = filter(pattern.match, file_names)
 
-            found_root = bool(len(root_file_names) > 0)
-
-            if found_root:
+            if list(filtered_file_names_gen):
                 return current_path
 
             found_system_root = bool(current_path == path.sep)
@@ -77,6 +67,6 @@ def detect(current_path = None, pattern = None):
             if found_system_root:
                 return None
 
-            current_path = path.abspath(path.join(current_path, '..'))
+            current_path = path.dirname(current_path)
 
     return find_root_path(current_path, pattern)
