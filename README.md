@@ -221,6 +221,18 @@ SAY: /home/me/projects/py-foo
 ---
 ```
 
+## Change Root Detection Pattern
+As stated earlier, the detection of the package/project's root directory
+is done by searching for typical package files (e.g. `.git`,
+`requirements.txt`, etc.).
+
+To override this behavior and have `rootpath` use a different file for
+root detection, set the `pattern` kwarg to the desired filename.
+
+### Example: Pipfile Root Detection
+```
+rootpath(pattern='Pipfile')
+```
 
 ## About
 
