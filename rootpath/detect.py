@@ -83,6 +83,13 @@ def detect(current_path = None, pattern = None):
             if found_system_root:
                 return None
 
+            system_root = sys.executable
+            while os.path.split(system_root)[1]:
+                system_root = os.path.split(system_root)[0]
+
+            if current_path == system_root:
+                return None
+
             current_path = path.abspath(path.join(current_path, '..'))
 
     return find_root_path(current_path, pattern)
