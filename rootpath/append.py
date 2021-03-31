@@ -44,6 +44,11 @@ def append(current_path = None, pattern = None):
     """
     project_root_path = rootpath.detect(current_path, pattern)
 
+    # if the returned value is None it should not be added
+
+    if project_root_path is None:
+        return False, project_root_path
+
     try:
         if project_root_path != current_path:
             try:
