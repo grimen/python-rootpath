@@ -84,6 +84,7 @@ def detect(current_path = None, pattern = None):
                 return None
 
             system_root = sys.executable
+            
             while os.path.split(system_root)[1]:
                 system_root = os.path.split(system_root)[0]
 
