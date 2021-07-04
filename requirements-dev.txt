@@ -1,0 +1,10 @@
+setupextras >= 0.1.5
+coloredlogs >= 10.0
+termcolor >= 1.1.0
+
+colour-runner >= 0.0.5
+deepdiff >= 3.3.0
+pygments >= 2.2.0
+tox >= 3.0.0
+coverage >= 4.5.2
+codecov >= 2.0.15
