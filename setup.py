@@ -89,6 +89,7 @@ config = {
     'install_requires': requirements,
     'setup_requires': [
         'setuptools_git >= 1.2',
+        'setupextras >= 0.1.5',
     ],
 }
 
