@@ -4,8 +4,10 @@
 # --------------------------------------
 
 import os
-import setuptools
-import setupextras
+from setuptools import setup, find_packages
+from os import path
+#import setuptools
+#import setupextras
 
 # DISABLED/BUG: this line fails when `pip install palmtree` but works `pip install .`
 # from palmtree import __version__
@@ -33,10 +35,23 @@ keywords = [
     'package-root-path',
 ]
 
-packages = setupextras.get_packages()
-data_files = setupextras.get_data_files(['*.*'], os.path.join(name, 'tests', '__fixtures__'))
-requirements = setupextras.get_requirements()
-readme = setupextras.get_readme()
+##
+# setupextras setup support
+#
+#packages = setupextras.get_packages()
+#data_files = setupextras.get_data_files(['*.*'], os.path.join(name, 'tests', '__fixtures__'))
+#requirements = setupextras.get_requirements()
+#readme = setupextras.get_readme()
+
+packages = find_packages(exclude=('tests',))
+data_files = []
+requirements = [
+        'six >= 1.11.0',
+        ]
+
+this_directory = path.abspath(path.dirname(__file__))
+with open(path.join(this_directory, 'README.md'), encoding='utf-8') as f:
+    readme = f.read()
 
 config = {
     'name': name,
@@ -89,7 +104,6 @@ config = {
     'install_requires': requirements,
     'setup_requires': [
         'setuptools_git >= 1.2',
-        'setupextras >= 0.1.5',
     ],
 }
 
