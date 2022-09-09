@@ -1,4 +1,3 @@
-
 # =========================================
 #       IMPORTS
 # --------------------------------------
@@ -10,21 +9,19 @@ import six
 
 from os import path, listdir
 
-
 # =========================================
 #       CONSTANTS
 # --------------------------------------
 
-DEFAULT_PATH = '.'
-DEFAULT_ROOT_FILENAME_MATCH_PATTERN = '.git|requirements.txt'
-
+DEFAULT_PATH = "."
+DEFAULT_ROOT_FILENAME_MATCH_PATTERN = ".git|requirements.txt|pyproject.toml"
 
 # =========================================
 #       FUNCTIONS
 # --------------------------------------
 
-def detect(current_path = None, pattern = None):
 
+def detect(current_path=None, pattern=None):
     """
     Find project root path from specified file/directory path,
     based on common project root file pattern.
@@ -46,7 +43,7 @@ def detect(current_path = None, pattern = None):
     if not path.isdir(current_path):
         current_path = path.dirname(current_path)
 
-    def find_root_path(current_path, pattern = None):
+    def find_root_path(current_path, pattern):
         if isinstance(pattern, six.string_types):
             pattern = re.compile(pattern)
 
@@ -59,9 +56,12 @@ def detect(current_path = None, pattern = None):
         file_names = None
         root_file_names = None
 
-        while (detecting):
-            file_names = listdir(current_path)
-            found_more_files = bool(len(file_names) > 0)
+        while detecting:
+            try:
+                file_names = listdir(current_path)
+                found_more_files = bool(len(file_names) > 0)
+            except FileNotFoundError:
+                return None
 
             if not found_more_files:
                 detecting = False
@@ -84,13 +84,13 @@ def detect(current_path = None, pattern = None):
                 return None
 
             system_root = sys.executable
-            
+
             while os.path.split(system_root)[1]:
                 system_root = os.path.split(system_root)[0]
 
             if current_path == system_root:
                 return None
 
-            current_path = path.abspath(path.join(current_path, '..'))
+            current_path = path.abspath(path.join(current_path, ".."))
 
     return find_root_path(current_path, pattern)
