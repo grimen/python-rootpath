@@ -174,7 +174,7 @@ class TestCase(helper.TestCase):
         self.assertEqual(root_path, None)
 
     def test_system_root(self):
-        root_path = rootpath.detect(r"\Users\Public\Downloads")
+        root_path = rootpath.detect(r"/Users/Public/Downloads")
         
         self.assertEqual(root_path, None)
 

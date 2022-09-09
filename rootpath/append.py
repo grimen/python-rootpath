@@ -1,15 +1,13 @@
-
 # =========================================
 #       DEPS
 # --------------------------------------
 
 import sys
-import os
 
 from os import path
 
 CURRENT_PATH = path.abspath(path.dirname(__file__))
-ROOT_PATH = path.abspath(path.join(CURRENT_PATH, '..'))
+ROOT_PATH = path.abspath(path.join(CURRENT_PATH, ".."))
 
 try:
     try:
@@ -24,13 +22,12 @@ except ValueError:
 
 import rootpath
 
-
 # =========================================
 #       FUNCTIONS
 # --------------------------------------
 
-def append(current_path = None, pattern = None):
 
+def append(current_path=None, pattern=None):
     """
     Automatically adds current file's package root to Python load path (i.e. `sys.path`) unless already added.
     This makes it possible to always ensure module imports behave same no matter how the file is loaded.
@@ -44,8 +41,11 @@ def append(current_path = None, pattern = None):
     """
     project_root_path = rootpath.detect(current_path, pattern)
 
+    if project_root_path is None:
+        return False, project_root_path
+
     try:
-        if project_root_path != current_path:
+        if current_path is not None and project_root_path != current_path:
             try:
                 sys.path.remove(current_path)
             except:
@@ -55,7 +55,7 @@ def append(current_path = None, pattern = None):
 
         return False, project_root_path
 
-    except ValueError as error:
+    except ValueError:
         sys.path.append(project_root_path)
 
         return True, project_root_path

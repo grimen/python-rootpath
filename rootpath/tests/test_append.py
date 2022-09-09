@@ -58,7 +58,8 @@ class TestCase(helper.TestCase):
 
     def test_rootpath_append_base(self):
         try:
-            sys.path.remove(ROOT_PATH)
+            while sys.path.count(ROOT_PATH) > 0:
+                sys.path.remove(ROOT_PATH)
         except:
             pass
 
